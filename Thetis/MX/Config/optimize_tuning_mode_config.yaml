@@ -1,0 +1,13 @@
+#optimize
+custom_template_path: {} # [Dict[str, List[str]]] The path of custom_template written by users
+custom_device: {} # [Dict[str, str]] The path of custom_device written by users
+skip_4_dim_conversion: false # [bool] The option to skip a 4_dim_conversion function. Defaults to False.
+skip_general_4dim_conversion: false # [bool] The option to skip a general 4dim conversion. Defaults to False.
+overwrite_input_shapes: {} # [Dict[str, List[int]]] Set of user's model input_layer name and shape
+override_input_dim: false # [bool] The option to override the input dimension. Defaults to False.
+override_output_dim: false # [bool] The option to override the output dimension. Defaults to False.
+ch_axis_of_inputs: {} # [Dict[str, List[int]]] Channel axis of the inputs need to be specified. (Ex.{"input_for_conv":[1], "input_for_linear":[-1]})
+skip_gen_ai_optimize: false # [bool] The option to skip a gen_ai_optimize function. Defaults to False.
+gen_ai_optimize_args:
+  partial_mha_splitting: false   # [bool] The option to skip a partial multi-head attention splitting function. Defaults to False.
+  update_modelinout_4dim: false   # [bool] The option to update the model input and output shape. Defaults to False.
