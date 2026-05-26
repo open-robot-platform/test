@@ -1,5 +1,0 @@
-ssh_hostname: NOT_USE #host name of the server connected to the device
-ssh_port: NOT_USE #the port number of the server connected to the device
-ssh_username: NOT_USE #the user name of the account connected to the device
-ssh_passwd: NOT_USE #the pass word of the account connected to the device
-ssh_workspace: NOT_USE #ssh workspace on the server connected to the device, ./ssh_workspace

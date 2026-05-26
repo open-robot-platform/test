@@ -1,1 +1,0 @@
-# {LAYER_NAME} {SIGNED} {BIT_WIDTH} clear this line when adding the real layer   

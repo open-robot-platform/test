@@ -1,6 +1,0 @@
-runtime_mode: default #[default, all, off]: runtime mode - default compares only preprocessed and final CNNX
-metric: snr #[str] Metric for error calculation
-threshold: 100 #[float] Threshold value for error metric
-input_data_path: Config/DATA #[Any] Path to input data
-input_permutation_seed:      #[int] Seed for input permutation. If null, a random seed will be used.
-check_output_snr: true       #[bool] Enable output SNR validation check. Set to false to skip the SNR threshold check on output layers.
