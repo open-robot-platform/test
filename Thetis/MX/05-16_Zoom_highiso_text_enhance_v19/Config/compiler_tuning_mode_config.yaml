@@ -1,0 +1,43 @@
+assign_cpu:                                        #[str]: Assign specific layer to cpu device
+assign_dsp:                                        #[str]: Assign specific layer to dsp device
+assign_npu: type:cast                              #[str]: Assign specific layer to npu device
+assign_ve:                                         #[str]: Assign specific layer to ve device
+assign_gpu:                                        #[str]: Assign specific layer to gpu device
+cast_inout: hw                                     #[sw, hw, none]: Type casting fp32 to fp16 for nnc input data and fp16 to fp32 for nnc output data
+compiler: NPU                                      #[NPU, CPU]: Compiler option
+dequant_type: hw                                   #[sw, hw, none]: Dequantiztion type
+enable_stm: true                                   #[bool]: Generate compile log including L1 tiling information
+input_conversion: hw_cfu                           #[sw_cfu, hw_cfu, no_cfu]: Add a Tensor2Cell format converter node at start of network
+output_conversion: hw_icfu                         #[sw_icfu, hw_icfu, no_icfu]: Add a Tensor2Cell format converter node at end of network
+multi_vc: true                                     #[bool]: Introduce Multi-VC for OFM, IFM, and weight transfer
+multicore: true                                    #[bool]: Enable NPU multicore
+optimization: O2                                   #[O0, O1, O2, O3]: Optimization choice
+quant_type: hw                                     #[sw, hw, none]: Quantiztion type
+enable_active_stratum: false                       #[bool]: This is optimization parameter for stratum tiling
+enable_hw_cost_based_stratum: true                 #[bool]: This is optimization parameter for stratum tiling based on HW cost
+enable_ofm_reuse: false                            #[bool]: Enable the reuse of OFM region for IMFM.
+strict_dfs: false                                  #[bool]: This is optimization parameter for tiling scheduling
+use_fine_grained_deps: false                       #[bool]: This is optimization parameter for tiling scheduling
+best_fit_generalized: false                        #[bool]: Control whether generalized best fit allocation is to be used.
+tuning_config: Config/nnc_graph_tiling.json        #[path]: Path of nnc graph tiling config file,default path is {workspace}/Config/nnc_graph_tiling.json
+pattern_config: Config/pattern_config.json         #[path]: Path of nnc optimization pattern config file,default path is {workspace}/Config/pattern_config.json
+schedule_config: Config/schedule.cfg.0             #[path]: Path of nnc schedule config file,default path is {workspace}/Config/schedule.cfg.0
+schedule_dep_config: Config/schedule_dep.cfg       #[path]: Path of nnc schedule_dep config file,default path is {workspace}/Config/schedule_dep.cfg
+multi_ncp: false                                   #[bool]: Generate multi-ncp(ucgo) custom op
+enable_automated_graph_slicing: true               #[bool]: compiler scheduling 
+cfu_double_buffering: false                        #[bool]: compiler scheduling
+graph_slicing_before_cu_multi_node_lowering: false #[bool]: compiler scheduling
+tiling_fragmentation_factor: 1.0                   #[float]: compiler scheduling
+loop_scheduling: true                             #[bool]: compiler scheduling
+eltsum_to_conv_lowering: true                      #[bool]: replace eltsum to conv op
+cell_packing: true                                 #[bool]: several cells are packed into the same physical SRAM word
+dram_reduction: false                              #[bool]: weight compression
+weight_comp: false                                 #[bool]: weight compression
+enable_permute_reordering: true                    #[bool]: transpose reordering
+remove_redundant_sfr_setting: true                 #[bool]: nnc compression
+vc_allocation: ''                                  #[str]: nnc compression
+parallel_execution_in_stratum: true                #[bool]: compiler scheduling
+remove_redundant_load_store: true                  #[bool]: remove redundant load store
+enable_post_allocation_passes: true                #[bool]: compiler sram allocation
+enable_opt_kcell_conversion: true                  #[bool]: optimized shape conversion
+enable_batch_reinterpretation: true                #[bool]: re-interpret batch dimension

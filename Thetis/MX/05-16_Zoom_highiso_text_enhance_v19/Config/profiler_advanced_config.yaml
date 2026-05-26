@@ -1,0 +1,16 @@
+npu_only: true                                    #[bool]: true: nnc just contains npu event, false: nnc also contains other event
+core_num: single                                  #[single, multiple]: The number of NPU core
+ssh_bool: SSH_FALSE                               #[SSH_FALSE, SSH_TRUE]: Connect to the device through ssh
+ssh_hostname: NOT_USE                             #[str]: host name of the server connected to the device
+ssh_port: NOT_USE                                 #[str]: the port number of the server connected to the device
+ssh_username: NOT_USE                             #[str]: the user name of the account connected to the device
+ssh_passwd: NOT_USE                               #[str]: the pass word of the account connected to the device
+ssh_workspace: ./ssh_workspace                            #[str]: ssh workspace on the server connected to the device, ./ssh_workspace
+tv_threshold: 0.0001                              #[number]: The value is used for tolerance threshold of output match verification.
+bitmatch_test: false                              #[bool]: true: run nnc on device to check bitmatch status without running visualprofiler function
+iter: 1                                           #[number]: This decides how many time the model inference will be processed.
+mode: performance                                 #[lowpower, balanced, performance, boost, custom]: 1. Low power mode : Mode for low power consumption and low performance. 2. Balanced mode : Mode for medium power consumption and medium performance. 3. Performance mode : Mode for high power consumption and high performance. 4. Boost mode : Mode for very high power consumption and very high performance. 5. custom mode: Mode for futher tuning of the Perf settings.
+perfconfig_id: 100001                             #[number]: used when mode is custom
+target: model                                     #[model, system]: profiling target.
+test_type: lib                                    #[lib, service]: ENN running mode
+useSNR: true                                      #[bool]: true: check nnc ondevice bitmatch status with SNR, false: check nnc ondevice bitmatch status with threshold": False

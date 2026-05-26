@@ -1,0 +1,55 @@
+general:
+  device: Gen-8                                                         #[Gen-2, Gen-2a, Gen-3, Gen-3DSP, Gen-4, Gen-4DSP, Gen-4Multi(only for fp16), Gen-5, Gen-5a, Gen-5b, Gen-6, Gen-7, Gen-7a, Gen-8, Gen-9]: Soc type
+  mode: legacy                                                          #[legacy, pro, gen-ai-eht, gen-ai-elt, gen-ai]: conversion mode
+  legacy_config_path: Config/legacy_config.yaml                         #[path]: the path of legacy config ymal
+database_gen:
+  database_spec: Config/DATA/dbgen_spec.yaml                            #[path]: DB genration dataset spec path (default path is {workspace}/DATA/db_spec.yaml)
+
+converter:
+  use_cuda: false                                                       #[bool]: Whether to use CUDA for GPU acceleration.
+  opset: 15                                                             #[int]: ONNX opset version for TFLite/Pytorch to ONNX conversion (default: 15)
+  quantize:
+    precision_weight: 8                                                 #[int] Parameter precision
+    precision_activation: 8                                             #[int] Activation precision
+    quantize_tuning_config: Config/quantize_tuning_mode_config.yaml     #[path]
+  specify:
+    graph_opt: none                                                     #[gaussi_xs_unet, gaussi_xs_te, gaussi_xs_ie, gaussi_xs_vae_decoder, gaussi_xs_ip, s26_gausslprefill, animated_diff, semantic_search, none]: Graph Optimizer Model Type, Model Name for Graph Optimizer.
+    input_dtype: float32                                                #[float32, float16, uint8, int8, uint16, int16, none]: You can set model input datatpye as float32, uint8(only Asym)(if none take from model).
+    output_dtype: float32                                               #[float32, float16, uint8, int8, uint16, int16, none]: You can set model output datatpye as float32, uint8(only Asym)(if none take from model).
+    layer_device_config: Config/layer_device_config.yaml                #[path]: the path of layer device assignment yaml file
+    debug: false                                                        #[bool]: dump layerwise sqnr between new snc and hw quantized snc, dump layerwise tv of sw snc
+    use_randomdb: true                                                  #[bool]: Use randomdb for profiling data set
+    userdb: Config/DATA/database.txt                                    #[path]: Profling data set path (default path is {workspace}/Config/DATA/database.txt)
+    test_vector_gen: false                                              #[bool]: Enable layerwise testvector generation after quantization.
+    tv_input: Config/DATA/database.h5                                   #[path]: Input data file path for testvector generation (default path is {workspace}/Config/DATA/database.h5)
+    custom_model:                                                       #[GaussI, GaussL]: custom model conversion
+    eval: false                                                         #[bool]: Enable evaluation after quantization for comparison between Quantized SNC and Hardware Quantized SNC.
+  optimizer:
+    model_type: CV                                                      #[CV, LLM, LVM]: Model type
+    device_name:                                                        #[str] device name customer choice
+    custom_template_path: {}                                            #[Dict[str, List[str]]] The path of custom_template written by users
+    optimize_tuning_config: Config/optimize_tuning_mode_config.yaml     #[path]
+  runtime:
+    metric: snr
+    threshold: 100
+    input_data_path:
+    check_output_snr: true                                                  #[bool]: Enable output SNR validation check. Set to false to skip the SNR threshold check on output layers.
+    runtime_tuning_config: Config/runtime_tuning_mode_config.yaml       #[path]
+
+compiler:
+  mode: tuning_mode                                                     #[default, multicore, tuning_mode, gen-ai, gaussl, gaussi]: default, use default param settings, multicore, use multicore param settings, tuning_mode, set param in compiler_tuning_mode_config.yaml 
+  debug_str:                                                            #[str]: Debug str for compiler
+  compiler_advanced_config: Config/compiler_tuning_mode_config.yaml     #[path]: if mode is tuning_mode, please set params in this yaml file
+simulator:
+  data_format: channel_first                                            #[channel_first, channel_last]: Indicate the position of channel of input
+  use_randomdb: false                                                   #[bool]: Use randomdb to forward, just support single input
+  userdb: Config/DATA/data.txt                                          #[path]: Simulation data set path (default path is {workspace}/DATA/data.txt)
+  pre_processing: false
+  post_processing: false
+  pre_processing_config: Config/DATA/pre_processing_config.yaml
+  post_processing_config: Config/DATA/post_processing_config.yaml
+
+profiler:
+  device_id: NOT_USE                                                    #[number]: id of the device connected to the server or PC running the enntools docker
+  ssh_bool: SSH_FALSE                                                   #[SSH_FALSE, SSH_TRUE]: Connect to the device through ssh
+  profiler_advance_config: Config/profiler_advanced_config.yaml         #[path]: the path of profiler config yaml

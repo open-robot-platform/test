@@ -1,0 +1,24 @@
+eltsum_cvt: true                                     #[bool]: enable eltwise conversion process; eltsum -> concat + conv
+onnx_simplify: true                                  #[bool]: enable onnx_simplify process
+optimize: true                                       #[bool]: Use graph optimization
+quantize_type: fp16                                  #[symm, asymm, fp16, qat, bf16, mxint]: Select quantization type, quantized model (include caffeQAT) is "qat"
+activation_bitwidth: 8                               #[8, 16]: Bitwidth of intermediate feature map(A).
+bw_kernel: 8                                         #[4, 8, 16]: Bitwidth of kernel(W).
+calibration_method: max                              #[percentile, entropy, distribution, percentropy]: (max) method selects the maximum absolute value activations as the quantization range; simple and fast, but may not be optimal. (percentile) method selects a percentile of activations as the quantization range; more robust than the absolute max method, but may require more computational resources. (entropy) method calculates the entropy of activations distribution and selects the quantization range that maximizes the entropy; provide a good balance between accuracy and quantization overhead. (percentropy) method uses both percentile and entropy at the same time in order to find optimal percentile ratio adaptively; For 8-bit quantization only, shows good performance but requires more time resources.
+debug: false                                         #[bool]: dump layerwise sqnr between new snc and hw quantized snc.
+do_quantize: true                                    #[bool]: Enable quantization
+input_dtype: float32                                 #[float32, float16, uint8, int8, uint16, int16, none]: You can set model input datatpye as float32, uint8(only Asym)(if none take from model).
+output_dtype: float32                                #[float32, float16, uint8, int8, uint16, int16, none]: You can set model output datatpye as float32, uint8(only Asym)(if none take from model).
+profile_batchsize: 1                                 #[unsigned int]: Batchsize for profile (value 100 is recommened).
+snc_converter: true                                  #[bool]: True, convert old snc to new snc, set it to false when input is new snc
+test_vector_gen: false                               #[bool]: Enable layerwise testvector generation after quantization.
+tv_input: Config/DATA/database.h5                    #[path]: Input data file path for testvector generation (default path is {workspace}/Config/DATA/database.h5)
+use_randomdb: true                                   #[bool]: Use randomdb for profiling data set
+userdb: Config/DATA/database.txt                     #[path]: Profling data set path (default path is {workspace}/Config/DATA/database.txt)
+graph_opt: none                                      #[animated_diff, common, none]: Graph Optimizer Model Type, Model Name for Graph Optimizer.
+custom_model:                                        #[GaussI, GaussL]: custom model conversion
+eval: false                                          #[bool]: Enable evaluation after quantization for comparison between Quantized SNC and Hardware Quantized SNC.
+mxint_type: amx_wmx                                  #[amx_wmx, a8_wmx, amx_w8]: Enable mxint8 for activation/weights.
+enable_4_dim_conversion_in_legacy: false             #[bool]: enable 4 dim conversion in EHT
+model_type: default                                  #[CV, default, LLM, LVM]: Model type for EHT optimizer
+use_cuda: false
